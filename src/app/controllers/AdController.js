@@ -21,7 +21,8 @@ class AdController {
       filters.title = new RegExp(req.query.title, 'i') // 'i' makes the query case insensitive
     }
 
-    console.log(filters)
+    //  brings only the non-purchased ads
+    filters.purchasedBy.$eq = null
 
     const ads = await Ad.paginate(filters, {
       page: req.query.page || 1,

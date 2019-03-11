@@ -16,6 +16,11 @@ const Ad = new mongoose.Schema({
     ref: 'User',
     required: true
   },
+  purchasedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Purchase',
+    required: false
+  },
   price: {
     type: Number,
     required: true
