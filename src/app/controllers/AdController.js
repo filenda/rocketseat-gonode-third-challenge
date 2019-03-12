@@ -22,6 +22,7 @@ class AdController {
     }
 
     //  brings only the non-purchased ads
+    filters.purchasedBy = {}
     filters.purchasedBy.$eq = null
 
     const ads = await Ad.paginate(filters, {

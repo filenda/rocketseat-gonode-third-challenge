@@ -32,22 +32,18 @@ class PurchaseController {
     const { purchase } = req.params
     const { ad } = req.body
 
-    const adToBePurchased = await Ad.findById(ad)
+    const adToBePurchased = await Ad.findById(ad).populate('author')
 
     //  Check if the purchase-accepting user is the ad author
-    if (adToBePurchased.author !== req.userId) {
+    if (adToBePurchased.author.id !== req.userId) {
       return res.status(401).json({ error: 'Invalid user' })
     }
 
     adToBePurchased.purchasedBy = purchase
 
-    const purchasedAd = await adToBePurchased.findByIdAndUpdate(
-      ad,
-      adToBePurchased,
-      {
-        new: true
-      }
-    )
+    const purchasedAd = await Ad.findByIdAndUpdate(ad, adToBePurchased, {
+      new: true
+    })
 
     return res.json(purchasedAd)
   }
