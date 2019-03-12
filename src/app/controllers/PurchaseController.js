@@ -39,6 +39,13 @@ class PurchaseController {
       return res.status(401).json({ error: 'Invalid user' })
     }
 
+    // const adToBePurchased = await Ad.findById(ad)
+
+    // //  Check if the purchase-accepting user is the ad author
+    // if (adToBePurchased.author._id.toString() !== req.userId) {
+    //   return res.status(401).json({ error: 'Invalid user' })
+    // }
+
     adToBePurchased.purchasedBy = purchase
 
     const purchasedAd = await Ad.findByIdAndUpdate(ad, adToBePurchased, {
